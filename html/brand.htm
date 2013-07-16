@@ -1,0 +1,82 @@
+<!-- INCLUDE html/verh.htm -->  
+
+<!-- INCLUDE html/menu.htm -->  
+
+
+
+<div class="span9">
+
+            <div class="span4">
+              <h2>{text}</h2>
+              <p>{full_text}</p>
+            </div><!--/span-->
+
+</div>
+
+
+<div class="span9">
+<p class="text-error">{stats}</p>
+
+<form action="index.php?route=brand/add_brand" method="post" name="go">
+  <fieldset>
+    <legend>Добавить новый бренд:</legend>
+    <label>Бренд:</label>
+    <input type="text" placeholder="Введите новый брэнд" name="bra" value="{add_bra}">
+    <span class="help-block">Id будет сгенерирован автоматически.</span>
+	 <label class="checkbox">
+      <input type="checkbox" name="org"> Оригинал
+    </label>
+    <button type="submit" class="btn">Добавить</button>
+  </fieldset>
+</form>
+
+
+<form action="index.php?route=brand/add_syn" method="post" name="go2">
+  <fieldset>
+    <legend>Добавить синоним:</legend>
+    <label>ID бренда:</label>
+    <input type="text" placeholder="Введите id" name="id" value="{id_bra}">
+    <span class="help-block">Id бренда для которого будет добавлен синоним.</span>
+    <label>Имя:</label>
+    <input type="text" placeholder="Введите синоним" name="bra" value="{add_sbra}">
+    <span class="help-block">Имя синонима для бренда.</span>
+    <button type="submit" class="btn">Добавить</button>
+  </fieldset>
+</form>
+
+
+
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th><b>ID</b></th>
+<th><b>TYP</b></th>
+<th><b>BRAND</b></th>
+<th><b>KIND</b></th>
+<th><b>Управление</b></th>
+</tr>
+</thead>
+		
+<tbody>
+<!-- BEGIN brands -->
+<tr>
+<td>{brands.id}</td>
+<td>{brands.typ}</td>
+<td>{brands.brand}</td>
+<td>{brands.kind}</td>
+<td><a href="index.php?route=brand/del/{brands.typ}/{brands.id}/{brands.brand}">del</a></td>
+</tr>
+<!-- END brands -->
+</tbody>
+</table>
+
+
+
+</div>
+
+
+
+
+
+
+<!-- INCLUDE html/niz.htm -->  

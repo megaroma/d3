@@ -1,0 +1,68 @@
+<!-- INCLUDE html/verh.htm -->  
+
+<!-- INCLUDE html/menu.htm -->  
+
+
+<div class="span9">
+
+            <div class="span4">
+              <h2>{text}</h2>
+              <p>{full_text}</p>
+            </div><!--/span-->
+
+
+</div>
+
+<div class="span9">
+<p class="text-error">{stats}</p>
+
+<!-- BEGIN load_form -->
+<form action="index.php?route=loadcsv/load" method="post" enctype="multipart/form-data">
+  <fieldset>
+  <legend>Загрузить файл:</legend>
+  <input type="file" name="filename">
+  <button name ="go_load"  type="submit" class="btn">Загрузить</button>
+  </fieldset>
+</form>
+<!-- END load_form -->
+
+<!-- BEGIN send_form -->
+<p> Загружено {z_kol} строк с файла.</p>
+<form class="form-inline" action="index.php?route=loadcsv/go" method="post">
+<input class="btn" type="submit" name="go" value="Передать на добавление">
+<input class="btn" type="submit" name="del" value="Удалить">
+</form>
+
+<!-- END send_form -->
+
+
+<!-- BEGIN bra_yes -->
+<p>Найдены не известные бренды в загруженых данных.</p>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th><b>Brand</b></th>
+</tr>
+</thead>
+<tbody>
+<!-- END bra_yes -->
+<!-- BEGIN bra -->
+<tr>
+<td>{bra.brand}</td>
+</tr>
+<!-- END bra -->
+<!-- BEGIN bra_yes -->
+</tbody>
+</table>
+<!-- END bra_yes -->
+
+<!-- BEGIN data_ready -->
+Данные готовы для загрузки в базу.
+<!-- END data_ready -->
+
+
+
+
+</div>
+
+<!-- INCLUDE html/niz.htm -->  

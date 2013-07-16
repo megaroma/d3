@@ -1,0 +1,38 @@
+<!-- INCLUDE html/verh.htm -->  
+
+<!-- INCLUDE html/menu.htm -->  
+
+
+
+<div class="span9">
+
+            <div class="span4">
+              <h2>{text}</h2>
+              <p>{full_text}</p>
+            </div><!--/span-->
+
+</div>
+
+
+<div class="span9">
+<p class="text-error">{stats}</p>
+<p>{info}</p>
+
+<!-- BEGIN contr -->
+<form class="form-inline" action="index.php?route=load/go" method="post">
+<input class="btn" type="submit" name="go" value="Загрузить в базу">
+<input class="btn" type="submit" name="del" value="Удалить">
+<span class="help-block">Перед отправкой можно запустить проверку брендов.</span>
+</form>
+<!-- END contr -->
+
+
+
+
+
+
+
+
+
+</div>
+<!-- INCLUDE html/niz.htm -->  
