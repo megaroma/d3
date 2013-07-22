@@ -23,6 +23,10 @@ try { $db->sql_query($sql); } catch (Exception $e) { $error->run($e); }
 $sql="SET time_zone = '+11:00'";
 try { $db->sql_query($sql); } catch (Exception $e) { $error->run($e); }
 
+$sql="SET group_concat_max_len =4096";
+try { $db->sql_query($sql); } catch (Exception $e) { $error->run($e); }
+
+
 
 $route = $_GET["route"];
 $router = new class_router($route);

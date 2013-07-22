@@ -55,7 +55,8 @@ if ($rr[0] == 'go')
     from  d3_price p where 
 	ART_BRA_MD5 = UNHEX(MD5(upper(REPLACE(CONCAT(\"$bra_id\",REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(\"$art\",\" \",\"\"),\"-\",\"\"),\".\",\"\"),\"/\",\"\"),\"#\",\"\")),\" \",\"\"))))  
     and p.brand_id = $bra_id";
-    try { $res=$db->sql_query($sql); } catch (Exception $e) { $error->run($e); }
+    try { $res=$db->sql_query($sql); } catch (Exception $e) {  echo $sql;
+	                                                         $error->run($e); }
 	$i = 0;
     while($row = $db->sql_fetchrow($res))
     {
@@ -81,7 +82,8 @@ if ($rr[0] == 'go')
       and brand_id = $bra_id
       group by ART_ID) a
       ";
-    try { $res=$db->sql_query($sql); } catch (Exception $e) { $error->run($e); }
+    try { $res=$db->sql_query($sql); } catch (Exception $e) { echo $sql;
+	$error->run($e); }
 	$row = $db->sql_fetchrow($res);
 	$art_id = $row["a_id"];
 	if   ($art_id <> "")
@@ -91,9 +93,11 @@ if ($rr[0] == 'go')
      from
      (select g.gr_id as gr_id  from d3_sgroups g where g.art_id in ( $art_id) and g.td = STR_TO_DATE('2050-01-01 00:00:00', '%Y-%m-%d %H:%i:%s')  group by g.gr_id) j
       ";
-     try { $res=$db->sql_query($sql); } catch (Exception $e) { $error->run($e); }
+     try { $res=$db->sql_query($sql); } catch (Exception $e) { echo $sql;
+	 $error->run($e); }
      $row = $db->sql_fetchrow($res);
-     $gr_id = $row["gr_id"];    	  
+     $gr_id = $row["gr_id"];   
+/*	 
      $sql = " select
      GROUP_CONCAT( CONCAT(j.art_id) SEPARATOR \",\") as art_id
      from
@@ -105,7 +109,8 @@ if ($rr[0] == 'go')
       d.gr_id in ($gr_id)
       and d.td = STR_TO_DATE('2050-01-01 00:00:00', '%Y-%m-%d %H:%i:%s') 
       group by gr_id,art_id) j";
-      try { $res=$db->sql_query($sql); } catch (Exception $e) { $error->run($e); }
+      try { $res=$db->sql_query($sql); } catch (Exception $e) {echo $sql;
+	  $error->run($e); }
       $row = $db->sql_fetchrow($res);
       $full_art_id = $row["art_id"];
 	  $sql = 
@@ -126,7 +131,32 @@ if ($rr[0] == 'go')
        where p.ART_BRA_MD5 =  a.ART_BRA_MD5 
        order by br_name
        "; 
-	   try { $res=$db->sql_query($sql); } catch (Exception $e) { $error->run($e); }
+*/	   
+	   //-----------------------------
+	   	  $sql = 
+      "select 
+    (select b.brand from d3_brands b where b.id = p.brand_id and b.typ = 1) as br_name,
+     p.art as art,
+     p.price as charge,
+     p.info as term,
+     (select t.name from d3_providers t where t.id = p.pro_id) as post,
+     p.num as kol
+     from  d3_price p, 
+       (select 
+        l.ART_BRA_MD5 
+        from d3_lookup l,d3_sgroups d  where 
+        l.ART_ID = d.art_id 
+		and d.gr_id in ($gr_id)
+        and d.td = STR_TO_DATE('2050-01-01 00:00:00', '%Y-%m-%d %H:%i:%s') 
+  	    and l.ART_BRA_MD5 <> UNHEX(MD5(upper(REPLACE(CONCAT(\"$bra_id\",REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(\"$art\",\" \",\"\"),\"-\",\"\"),\".\",\"\"),\"/\",\"\"),\"#\",\"\")),\" \",\"\"))))  
+       group by l.ART_BRA_MD5) a
+       where p.ART_BRA_MD5 =  a.ART_BRA_MD5 
+       order by br_name
+       "; 
+	   
+	   //-----------------------------
+	   try { $res=$db->sql_query($sql); } catch (Exception $e) { echo $sql;
+	   $error->run($e); }
 	   $i=0;
 	      while($row = $db->sql_fetchrow($res))
            {
