@@ -1,0 +1,52 @@
+<!-- INCLUDE html/verh.htm -->  
+
+<!-- INCLUDE html/menu.htm -->  
+
+
+
+<div class="span9">
+
+            <div class="span4">
+              <h2>{text}</h2>
+              <p>{full_text}</p>
+            </div><!--/span-->
+
+</div>
+
+
+<div class="span9">
+<p class="text-error">{stats}</p>
+<p>{zag}</p>
+
+<form action="index.php?route=tobitrix" method="post">
+<label>Добавить ID новых позиций в прайсе:</label>
+<input type="hidden"  name="add_id" value="123">
+<button type="submit" class="btn">Добавить</button>
+</form>
+
+<form action="index.php?route=tobitrix" method="post" >
+<label>Удалить ID элементов которых уже нет в прайсе:</label>
+<input type="hidden"  name="del_id" value="123">
+<button type="submit" class="btn">Удалить</button>
+</form>
+
+
+
+<form action="index.php?route=tobitrix" method="post" target="_blank">
+
+<input type="hidden"  name="load" value="123">
+<label>Передать прайс в битрикс</label>
+<button type="submit" class="btn btn-primary">Передать данные</button>
+
+</form>
+
+
+
+</div>
+
+
+
+
+
+
+<!-- INCLUDE html/niz.htm -->  

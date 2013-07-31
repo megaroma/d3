@@ -8,6 +8,7 @@ abstract class class_db
 
 private $db_connect_id;
 private $query_result='';
+private $affected_rows=0;
 
  public static function getInstance($typ)
     {
@@ -23,7 +24,7 @@ abstract function sql_query_limit($query, $total, $offset = 0);
 abstract function sql_fetchrow($query_id = false);
 abstract function sql_freeresult($query_id = false);
 abstract function sql_close();
-
+abstract function sql_affected_rows();
 
 
 

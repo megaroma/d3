@@ -79,9 +79,73 @@ $row = $db->sql_fetchrow($res);
 $out_data['cur_art_id'] = $row['cur_art_id'];
 $out_data['cur_gr_id'] = $row['cur_gr_id'];
 
+
+if ($rr[0] <> "")
+{
+ if ($rr[0] == 'deleted') 
+  {
+  $dop = "where stat = 3";
+  $out_data['act_class2']='class="active"';
+  
+  $out_data['link1']='<a href="index.php?route=llogs/activ">';
+  $out_data['link3']='<a href="index.php?route=llogs/all">';
+  $out_data['elink1']="</a>";
+  $out_data['elink3']="</a>";
+  
+  } 
+  elseif ($rr[0] == 'activ') 
+  {
+  $out_data['act_class1']='class="active"';
+  $dop = "where stat in (2,1)";
+  
+  $out_data['link2']='<a href="index.php?route=llogs/deleted">';
+  $out_data['link3']='<a href="index.php?route=llogs/all">';
+  $out_data['elink2']="</a>";
+  $out_data['elink3']="</a>";
+  } 
+  elseif($rr[0] == 'all') 
+  {
+  $out_data['act_class3']='class="active"';
+  $dop = "where stat in (1,2,3)";
+  
+  $out_data['link1']='<a href="index.php?route=llogs/activ">';
+  $out_data['link2']='<a href="index.php?route=llogs/deleted">';
+  $out_data['elink1']="</a>";
+  $out_data['elink2']="</a>";
+
+  
+  } else
+  { //по умолчанию
+  $out_data['act_class1']='class="active"';
+  $dop = "where stat in (2,1)";
+  
+  $out_data['link2']='<a href="index.php?route=llogs/deleted">';
+  $out_data['link3']='<a href="index.php?route=llogs/all">';
+  $out_data['elink2']="</a>";
+  $out_data['elink3']="</a>";
+
+  }
+
+
+} else 
+{ //по умолчанию
+
+  $out_data['act_class1']='class="active"';
+  $dop = "where stat in (2,1)";
+  
+  $out_data['link2']='<a href="index.php?route=llogs/deleted">';
+  $out_data['link3']='<a href="index.php?route=llogs/all">';
+  $out_data['elink2']="</a>";
+  $out_data['elink3']="</a>";
+
+}
+
+
 $sql = "select
 id, dt, seq_art_id, seq_gr_id, fname, stat
-from d3_load_log order by id
+from d3_load_log
+$dop
+order by id
 ";
 try {$res = $db->sql_query($sql); } catch (Exception $e) { $error->run($e); }
 $i = 0;

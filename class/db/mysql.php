@@ -103,6 +103,19 @@ public function sql_freeresult($query_id = false)
  
  
  
+ 
+public function sql_affected_rows()
+	{ 
+		
+    $this->affected_rows = @mysql_affected_rows($this->db_connect_id);
+	
+	return $this->affected_rows;
+	}	
+ 
+ 
+ 
+ 
+ 
 public function sql_close()
 	{
 		if (!$this->db_connect_id)
@@ -111,6 +124,7 @@ public function sql_close()
 		}
    return @mysql_close($this->db_connect_id);
    }	
+ 
  
  
  
