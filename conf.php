@@ -3,6 +3,7 @@ if (!defined('IN_D3'))
 {
 	exit;
 }
+//config file
 class conf
 {
 // DB 
